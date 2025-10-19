@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ФермаРФ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            max-width: 100%;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 ФермаРФ</h1>
+            <p>Площадка для агробизнеса</p>
+        </div>
+
+        <button class="btn" onclick="createOrder()">📥 Разместить объявление</button>
+        <button class="btn" onclick="findOrders()">📤 Найти предложения</button>
+        <button class="btn" onclick="showProfile()">👤 Мой профиль</button>
+        <button class="btn" onclick="showPremium()">💎 Премиум доступ</button>
+        <button class="btn" onclick="contactSupport()">📞 Поддержка</button>
+
+        <div id="content"></div>
+    </div>
+
+    <script>
+        function createOrder() {
+            const title = prompt("Введите название товара:");
+            if (title) {
+                Telegram.WebApp.sendData(JSON.stringify({
+                    action: 'create_order',
+                    title: title
+                }));
+            }
+        }
+
+        function findOrders() {
+            Telegram.WebApp.sendData(JSON.stringify({
+                action: 'get_orders'
+            }));
+        }
+
+        function showProfile() {
+            Telegram.WebApp.sendData(JSON.stringify({
+                action: 'get_profile' 
+            }));
+        }
+
+        function showPremium() {
+            Telegram.WebApp.sendData(JSON.stringify({
+                action: 'premium_info'
+            }));
+        }
+
+        function contactSupport() {
+            Telegram.WebApp.openTelegramLink('https://t.me/fermarfsupport');
+        }
+    </script>
+</body>
+</html>

@@ -11,6 +11,7 @@
             margin: 0;
             padding: 20px;
             color: white;
+            min-height: 100vh;
         }
         .container {
             max-width: 100%;
@@ -31,12 +32,6 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px 0;
-        }
     </style>
 </head>
 <body>
@@ -51,42 +46,33 @@
         <button class="btn" onclick="showProfile()">👤 Мой профиль</button>
         <button class="btn" onclick="showPremium()">💎 Премиум доступ</button>
         <button class="btn" onclick="contactSupport()">📞 Поддержка</button>
-
-        <div id="content"></div>
     </div>
 
     <script>
         function createOrder() {
-            const title = prompt("Введите название товара:");
-            if (title) {
-                Telegram.WebApp.sendData(JSON.stringify({
-                    action: 'create_order',
-                    title: title
-                }));
-            }
+            // Просто открываем ссылку в Telegram
+            Telegram.WebApp.openTelegramLink('https://t.me/fermarf_bot?start=create_order');
         }
 
         function findOrders() {
-            Telegram.WebApp.sendData(JSON.stringify({
-                action: 'get_orders'
-            }));
+            Telegram.WebApp.openTelegramLink('https://t.me/fermarf_bot?start=find_orders');
         }
 
         function showProfile() {
-            Telegram.WebApp.sendData(JSON.stringify({
-                action: 'get_profile' 
-            }));
+            Telegram.WebApp.openTelegramLink('https://t.me/fermarf_bot?start=profile');
         }
 
         function showPremium() {
-            Telegram.WebApp.sendData(JSON.stringify({
-                action: 'premium_info'
-            }));
+            Telegram.WebApp.openTelegramLink('https://t.me/fermarfsupport');
         }
 
         function contactSupport() {
             Telegram.WebApp.openTelegramLink('https://t.me/fermarfsupport');
         }
+
+        // Инициализация Web App
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
     </script>
 </body>
 </html>
